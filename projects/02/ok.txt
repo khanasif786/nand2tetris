@@ -1,0 +1,32 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/And.hdl
+
+/**
+ * And gate: 
+ * out = 1 if (a == 1 and b == 1)
+ *       0 otherwise
+ */
+
+CHIP And16Way {
+    IN a[16];
+    OUT out;
+
+    PARTS:
+    And(a=a[0],b=a[1],out=out1);
+    And(a=out1,b=a[2],out=out2);
+    And(a=out2,b=a[3],out=out3);
+    And(a=out3,b=a[4],out=out4);
+    And(a=out4,b=a[5],out=out5);
+    And(a=out5,b=a[6],out=out6);
+    And(a=out6,b=a[7],out=out7);
+    And(a=out7,b=a[8],out=out8);
+    And(a=out8,b=a[9],out=out9);
+    And(a=out9,b=a[10],out=out10);
+    And(a=out10,b=a[11],out=out11);
+    And(a=out11,b=a[12],out=out12);
+    And(a=out12,b=a[13],out=out13);
+    And(a=out13,b=a[14],out=out14);
+    And(a=out14,b=a[15],out=out);
+}

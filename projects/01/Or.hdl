@@ -14,5 +14,11 @@ CHIP Or {
     OUT out;
 
     PARTS:
-    // Put your code here:
+    // Solver: khanasif786 -> www.github.com/khanasif786
+    // There may be some short and efficient method. This solution
+    // is only upto the limitations of this course.if there any better
+    // solution than feel free to make a pull request.
+    Nand(a=a, b=a, out=Nota);
+    Nand(a=b, b=b, out=Notb);
+    Nand(a=Nota, b=Notb, out=out);
 }

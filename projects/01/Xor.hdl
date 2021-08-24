@@ -13,5 +13,12 @@ CHIP Xor {
     OUT out;
 
     PARTS:
-    // Put your code here:
+    // Solver: khanasif786 -> www.github.com/khanasif786
+    // There may be some short and efficient method. This solution
+    // is only upto the limitations of this course.if there any better
+    // solution than feel free to make a pull request.
+    Nand(a=a, b=b, out=outmiddle);
+    Nand(a=a, b=outmiddle, out=out1);
+    Nand(a=b, b=outmiddle, out=out2);
+    Nand(a=out1, b=out2, out=out);
 }

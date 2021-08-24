@@ -16,5 +16,11 @@ CHIP DMux4Way {
     OUT a, b, c, d;
 
     PARTS:
-    // Put your code here:
+    // Solver: khanasif786 -> www.github.com/khanasif786
+    // There may be some short and efficient method. This solution
+    // is only upto the limitations of this course.if there any better
+    // solution than feel free to make a pull request.
+    DMux(in=in, sel=sel[1], a=Dmux1Out1, b=Dmux2Out2);
+    DMux(in=Dmux1Out1, sel=sel[0], a=a, b=b);
+    DMux(in=Dmux2Out2, sel=sel[0], a=c, b=d);
 }

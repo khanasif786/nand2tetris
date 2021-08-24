@@ -14,7 +14,9 @@ CHIP And {
     OUT out;
 
     PARTS:
-    // Put your code here:
+    // Solver khanasif786 www.github.com/khanasif786
+    // There may be some short and efficient method this solution
+    // is only upto the limitations of this course.
     Nand(a=a, b=b, out=Nand1out);
     Nand(a=Nand1out, b=Nand1out, out=out);
 }

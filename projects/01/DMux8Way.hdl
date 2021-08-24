@@ -16,5 +16,11 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
-    // Put your code here:
+    // Solver: khanasif786 -> www.github.com/khanasif786
+    // There may be some short and efficient method. This solution
+    // is only upto the limitations of this course.if there any better
+    // solution than feel free to make a pull request.
+    DMux(in=in, sel=sel[2], a=DMux1Out1, b=DMux1Out2);
+    DMux4Way(in=DMux1Out1, sel=sel[0..1], a=a, b=b, c=c, d=d);
+    DMux4Way(in=DMux1Out2, sel=sel[0..1], a=e, b=f, c=g, d=h);
 }

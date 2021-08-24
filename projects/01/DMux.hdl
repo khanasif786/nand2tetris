@@ -14,5 +14,12 @@ CHIP DMux {
     OUT a, b;
 
     PARTS:
-    // Put your code here:
+    // Solver khanasif786 www.github.com/khanasif786
+    // There may be some short and efficient method this solution
+    // is only upto the limitations of this course.
+    Nand(a=sel, b=sel, out=NotOut);
+    Nand(a=NotOut, b=in, out=Nota);
+    Nand(a=Nota, b=Nota, out=a);
+    Nand(a=sel, b=in, out=Notb);
+    Nand(a=Notb, b=Notb, out=b);
 }

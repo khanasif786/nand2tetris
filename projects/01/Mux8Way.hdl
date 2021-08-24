@@ -1,16 +1,12 @@
-// This file is part of www.nand2tetris.org
+// This file is not a part of www.nand2tetris.org 
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/01/Mux.hdl
+// File name: projects/01/Mux8Way.hdl
+// This file is added to simplify the workflow.
 
-/** 
- * Multiplexor:
- * out = a if sel == 0
- *       b otherwise
- */
 
-CHIP Mux {
-    IN a, b, sel;
+CHIP Mux8Way {
+    IN a, b, c, d, e, f, g, h, sel[3];
     OUT out;
 
     PARTS:
@@ -18,8 +14,8 @@ CHIP Mux {
     // There may be some short and efficient method. This solution
     // is only upto the limitations of this course.if there any better
     // solution than feel free to make a pull request.
-    Nand(a=a, b=Notsel, out=out1);
-    Nand(a=sel, b=sel, out=Notsel);
-    Nand(a=b, b=sel, out=out2);
-    Nand(a=out1, b=out2, out=out);
+   Mux4Way(a=a, b=b, c=c, d=d, sel=sel[0..1], out = out1);
+   Mux4Way(a=e, b=f, c=g, d=h, sel=sel[0..1], out = out2);
+   Mux(a=out1, b=out2, sel=sel[2], out=out);
+
 }

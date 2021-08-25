@@ -9,9 +9,13 @@
  */
 
 CHIP Inc16 {
-    IN in[16];
+    IN in[16] ;
     OUT out[16];
 
     PARTS:
-   // Put you code here:
+    // Solver: khanasif786 -> www.github.com/khanasif786
+    // There may be some short and efficient method. This solution
+    // is only upto the limitations of this course.if there any better
+    // solution than feel free to make a pull request.
+    Add16(a=in, b[0]=true, b[1..15] = false, out=out);
 }

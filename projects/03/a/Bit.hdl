@@ -13,6 +13,12 @@ CHIP Bit {
     IN in, load;
     OUT out;
 
-    PARTS:
-    // Put your code here:
+    PARTS: 
+    // Solver: khanasif786 -> www.github.com/khanasif786
+    // There may be some short and efficient method. This solution
+    // is only upto the limitations of this course.if there any better
+    // solution than feel free to make a pull request.
+    DFF(in=muxout, out=out, out=outcopy);
+    Mux(a=outcopy, b=in, sel=load, out=muxout);
+    
 }

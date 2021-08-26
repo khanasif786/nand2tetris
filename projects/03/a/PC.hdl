@@ -16,5 +16,52 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    // Solver: khanasif786 -> www.github.com/khanasif786
+    // There may be some short and efficient method. This solution
+    // is only upto the limitations of this course.if there any better
+    // solution than feel free to make a pull request.
+    /*DFF(in=muxout[0], out=out, out=outcopy1);
+    DFF(in=muxout[1], out=out, out=outcopy2);
+    DFF(in=muxout[2], out=out, out=outcopy3);
+    DFF(in=muxout[3], out=out, out=outcopy4);
+    DFF(in=muxout[4], out=out, out=outcopy5);
+    DFF(in=muxout[5], out=out, out=outcopy6);
+    DFF(in=muxout[6], out=out, out=outcopy7);
+    DFF(in=muxout[7], out=out, out=outcopy8);
+    DFF(in=muxout[8], out=out, out=outcopy9);
+    DFF(in=muxout[9], out=out, out=outcopy10);
+    DFF(in=muxout[10], out=out, out=outcopy11);
+    DFF(in=muxout[11], out=out, out=outcopy12);
+    DFF(in=muxout[12], out=out, out=outcopy13);
+    DFF(in=muxout[13], out=out, out=outcopy14);
+    DFF(in=muxout[14], out=out, out=outcopy15);
+    DFF(in=muxout[15], out=out, out=outcopy16);*/
+    Register(in=muxout, load=true, out=out , out = outcopy);
+    /*
+    Mux8Way16(a[0]=outcopy1 , a[1] = outcopy2 , a[2] = outcopy3 ,
+    a[3] = outcopy4 , a[4] = outcopy5 , a[5] = outcopy6 , a[6] = outcopy7 ,
+    a[7] = outcopy8 , a[8] = outcopy9 , a[9] = outcopy10 , a[10] = outcopy11 , 
+    a[11] = outcopy12 , a[12] = outcopy13 , a[13] = outcopy14  , a[14] = outcopy15 , 
+    a[15] = outcopy16, b=incOut, c=in, d=in, e=resetNot, f=resetNot, g=resetNot, h=resetNot, sel[0] = inc ,
+    sel[1] = load , sel[2] = reset, out[0..15]=muxout);
+
+    Inc16(in[0]=outcopy1 , in[1] = outcopy2 , in[2] = outcopy3 ,
+    in[3] = outcopy4 , in[4] = outcopy5 , in[5] = outcopy6 , in[6] = outcopy7 ,
+    in[7] = outcopy8 , in[8] = outcopy9 , in[9] = outcopy10 , in[10] = outcopy11 , 
+    in[11] = outcopy12 , in[12] = outcopy13 , in[13] = outcopy14  , in[14] = outcopy15 , 
+    in[15] = outcopy16, out=incOut);
+    */
+    Mux8Way16(a = outcopy, b=incOut, c=in, d=in, e=resetNot, f=resetNot, g=resetNot, h=resetNot, sel[0] = inc ,
+    sel[1] = load , sel[2] = reset, out=muxout);
+
+    Inc16(in = outcopy, out=incOut);
+    
+
+    Not16(in[0]=reset , in[1] = reset , in[2] = reset ,
+    in[3] = reset , in[4] = reset , in[5] = reset , in[6] = reset ,
+    in[7] = reset , in[8] = reset , in[9] = reset , in[10] = reset , 
+    in[11] = reset , in[12] = reset , in[13] = reset  , in[14] = reset , 
+    in[15] = reset, out=resetNot);
+
+
 }

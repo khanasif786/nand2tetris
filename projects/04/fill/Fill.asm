@@ -12,3 +12,53 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+
+(LOOP)
+@i
+M=0
+
+@SCREEN
+D=A
+@startpixelbyte
+M=D
+
+@KBD
+D=A
+@endpixelbyte
+M=D
+
+//@endpixelbyte
+//D=M
+//@startpixelbyte
+//A=M
+@8192
+D=A
+@screenwidth
+M=D
+
+
+@KBD
+D=M
+@DRAW
+D;JNE
+
+(DRAW)
+    @startpixelbyte
+    D=M
+    @i
+    A=D+M
+    
+    M=-1
+    
+    @i
+    D=M
+    @screenwidth
+    D=M-D
+    @i
+    M=M+1
+    
+    @DRAW
+    D;JGT
+    
+@LOOP
+0;JMP

@@ -40,7 +40,7 @@
     @KBD
     D=M
     @DRAW
-    D;JGT
+    D;JGT 
 
     @KBD
     D=M
@@ -63,6 +63,7 @@
         D=M
         @screenwidth
         D=M-D
+        D=D-1
         @i
         M=M+1
     
@@ -84,6 +85,7 @@
         D=M
         @screenwidth
         D=M-D
+        D=D-1
         @i
         M=M+1
     

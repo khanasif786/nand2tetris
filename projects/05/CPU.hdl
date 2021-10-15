@@ -25,7 +25,7 @@
  * than to the address resulting from executing the current instruction. 
  */
 
-CHIP CPU {
+CHIP CPU {   
 
     IN  inM[16],         // M value input  (M = contents of RAM[A])
         instruction[16], // Instruction for execution
@@ -39,5 +39,67 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    // Solver: khanasif786 -> www.github.com/khanasif786
+    // There may be some short and efficient method. This solution
+    // is only upto the limitations of this course.if there any better
+    // solution than feel free to make a pull request.
+
+    //MuxA
+    Not(in=instruction[15], out=MuxASel);
+    Mux16(a=AluOut, b=instruction, sel=MuxASel, out=MuxAOut);
+
+    //ARegister
+    Not(in=instruction[15], out=InstZeroNot);
+    Or(a=instruction[5], b=InstZeroNot, out=ARegisterLoad);
+    ARegister(in=MuxAOut, load=ARegisterLoad, out=ARegisterOut,out[0..14]=addressM);
+
+    //DRegister 
+    And(a=instruction[4], b=instruction[15], out=AndOut);
+    DRegister(in=AluOut, load=AndOut, out=DRegisterOut);
+     
+    //MuxB
+    And(a=instruction[15], b=instruction[12], out=MuxBSel);
+    Mux16(a=ARegisterOut, b=inM, sel=MuxBSel, out=MuxBOut);
+     
+    // MRegister Write (writeM)
+    And(a=instruction[3], b=instruction[15], out=writeM);
+
+    // ALU
+    ALU(x=DRegisterOut, y=MuxBOut, zx=instruction[11], nx=instruction[10],zy=instruction[9],
+     ny=instruction[8], f=instruction[7], no=instruction[6], out=outM,out=AluOut, zr=zrOut, ng=ngOut);
+
+    /////// JUMP Circuit
+    // J1 = instruction[13] 
+    // J2 = instruction[14]
+    // J3 = instruction[15]
+    // Helpers
+    Not(in=instruction[2], out=inst13Not);
+    Not(in=instruction[1], out=inst14Not);
+    Not(in=instruction[0], out=inst15Not);
+    Not(in=zrOut, out=zrOutNot);
+    Not(in=ngOut, out=ngOutNot);
+
+    ////////
+
+    //if j3 == 1 And ng == 0 and zr == 0
+    And(a=ngOutNot, b=zrOutNot, out=FullPositive);
+    And(a=FullPositive, b=instruction[0], out=jgt);
+    And(a=instruction[15], b=jgt, out=temp1);
+
+    // j2 == 1 And  zr == 1
+    And(a=zrOut, b=instruction[1], out=jeq);
+    And(a=jeq, b=instruction[14], out=temp2);
+
+    // j1 == 1 And ng  == 1
+    And(a=instruction[2], b=ngOut, out=jlt);
+    And(a=jlt, b=instruction[13], out=temp3);
+
+    Or(a=temp1, b=temp2, out=out1);
+    Or(a=out1, b=temp3, out=JumpOut);
+
+    // PC
+    PC(in=ARegisterOut, load=JumpOut, inc=true, reset=reset, out[0..14]=pc);
+
+    
+    
 }

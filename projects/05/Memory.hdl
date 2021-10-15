@@ -27,12 +27,16 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
-	DMux4Way(in=load, sel=address[13..14], a=loadram1, b=loadram2, c=loadscreen, d=loadkbd);
-	Or(a=loadram1, b=loadram2, out=loadram);
-    RAM16K(in=in, load=loadram, address=address[0..13], out=ramout);
-    Screen(in=in, load=loadscreen, address=address[0..12], out=scrout);
+    // Solver: khanasif786 -> www.github.com/khanasif786
+    // There may be some short and efficient method. This solution
+    // is only upto the limitations of this course.if there any better
+    // solution than feel free to make a pull request.
+
+	DMux4Way(in=load, sel=address[13..14], a=ldram1, b=ldram2, c=screenin, d=loadkbd);
+	Or(a=ldram1, b=ldram2, out=loadram);
+    RAM16K(in=in, load=loadram, address=address[0..13], out=RamOut);
+    Screen(in=in, load=screenin, address=address[0..12], out=scrout);
     Keyboard(out=kbout);
-    Mux4Way16(a=ramout, b=ramout, c=scrout, d=kbout, sel=address[13..14], out=out);
+    Mux4Way16(a=RamOut, b=RamOut, c=scrout, d=kbout, sel=address[13..14], out=out);
     
 }
